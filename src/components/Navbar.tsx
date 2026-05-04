@@ -9,33 +9,38 @@ interface NavbarProps {
 }
 
 const navItems = [
-  { id: "home" as Page, label: "Главная" },
-  { id: "news" as Page, label: "Новости" },
-  { id: "russifiers" as Page, label: "Русификаторы" },
+  { id: "news" as Page, label: "НОВОСТИ" },
+  { id: "russifiers" as Page, label: "РУСИФИКАТОРЫ" },
 ];
 
 export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-[var(--color-bg)]/90 backdrop-blur-sm border-b border-[var(--color-border)]">
-      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+    <header className="w-full bg-[#b0b0b0] px-6 py-3">
+      <div className="max-w-6xl mx-auto flex items-center justify-between">
+        {/* Logo */}
         <button
           onClick={() => onNavigate("home")}
-          className="font-display text-xl font-bold text-[var(--color-accent)] tracking-tight hover:opacity-80 transition-opacity"
+          className="flex-shrink-0 hover:opacity-80 transition-opacity"
         >
-          RuLoc
+          <div className="w-16 h-16 rounded-full bg-white border-4 border-black flex items-center justify-center">
+            <span className="font-black text-black text-lg leading-none tracking-tighter select-none">
+              ХКР
+            </span>
+          </div>
         </button>
 
-        <nav className="hidden md:flex items-center gap-8">
+        {/* Desktop nav */}
+        <nav className="hidden md:flex items-center gap-3">
           {navItems.map((item) => (
             <button
               key={item.id}
               onClick={() => onNavigate(item.id)}
-              className={`font-body text-sm tracking-wide transition-all duration-200 pb-0.5 border-b ${
+              className={`px-5 py-2 rounded-full font-black text-sm tracking-wide transition-all duration-200 ${
                 currentPage === item.id
-                  ? "text-[var(--color-accent)] border-[var(--color-accent)]"
-                  : "text-[var(--color-muted)] border-transparent hover:text-[var(--color-text)] hover:border-[var(--color-border)]"
+                  ? "bg-[#1a1a1a] text-white"
+                  : "bg-black text-white hover:bg-[#333]"
               }`}
             >
               {item.label}
@@ -43,25 +48,22 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
           ))}
         </nav>
 
+        {/* Mobile burger */}
         <button
-          className="md:hidden text-[var(--color-muted)] hover:text-[var(--color-text)] transition-colors"
+          className="md:hidden text-black"
           onClick={() => setMenuOpen(!menuOpen)}
         >
-          <Icon name={menuOpen ? "X" : "Menu"} size={22} />
+          <Icon name={menuOpen ? "X" : "Menu"} size={24} />
         </button>
       </div>
 
       {menuOpen && (
-        <div className="md:hidden border-t border-[var(--color-border)] bg-[var(--color-bg)]">
+        <div className="md:hidden mt-3 flex flex-col gap-2 pb-2">
           {navItems.map((item) => (
             <button
               key={item.id}
               onClick={() => { onNavigate(item.id); setMenuOpen(false); }}
-              className={`w-full text-left px-6 py-4 font-body text-sm border-b border-[var(--color-border)] transition-colors ${
-                currentPage === item.id
-                  ? "text-[var(--color-accent)]"
-                  : "text-[var(--color-muted)] hover:text-[var(--color-text)]"
-              }`}
+              className="w-full text-left px-5 py-3 rounded-full bg-black text-white font-black text-sm tracking-wide"
             >
               {item.label}
             </button>

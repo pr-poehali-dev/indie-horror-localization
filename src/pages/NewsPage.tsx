@@ -47,49 +47,45 @@ const news = [
 ];
 
 const tagColors: Record<string, string> = {
-  "Обновление": "bg-blue-500/10 text-blue-400 border-blue-500/20",
-  "Новый перевод": "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
-  "Анонс": "bg-orange-500/10 text-orange-400 border-orange-500/20",
-  "Инструменты": "bg-purple-500/10 text-purple-400 border-purple-500/20",
+  "Обновление": "bg-[#2ab8c0]/10 text-[#2ab8c0] border-[#2ab8c0]/30",
+  "Новый перевод": "bg-[#00e5a0]/10 text-emerald-600 border-[#00e5a0]/30",
+  "Анонс": "bg-[#f0f000]/20 text-yellow-700 border-[#f0f000]/50",
+  "Инструменты": "bg-black/5 text-black border-black/20",
 };
 
 export default function NewsPage() {
   return (
-    <div className="min-h-screen pt-16">
-      <div className="max-w-3xl mx-auto px-6 pt-14 pb-20">
-        <div className="mb-12">
-          <span className="inline-block font-body text-xs tracking-[0.25em] uppercase text-[var(--color-accent)] mb-3 opacity-80">
-            Лента
-          </span>
-          <h1 className="font-display text-4xl font-bold text-[var(--color-text)]">
-            Новости
+    <div className="min-h-screen bg-white text-black">
+      <div className="max-w-3xl mx-auto px-6 pt-10 pb-20">
+        <div className="mb-10">
+          <h1 className="font-black text-[clamp(2.5rem,8vw,6rem)] uppercase leading-none tracking-tight text-black">
+            НОВОСТИ
           </h1>
         </div>
 
-        <div className="space-y-px">
-          {news.map((item, i) => (
+        <div className="space-y-3">
+          {news.map((item) => (
             <article
               key={item.id}
-              className="group border border-[var(--color-border)] rounded-xl p-6 mb-3 hover:border-[var(--color-accent)] transition-all duration-300 cursor-pointer"
-              style={{ animationDelay: `${i * 60}ms` }}
+              className="group border-2 border-black rounded-2xl p-6 cursor-pointer hover:bg-[#f0f000] transition-colors duration-200"
             >
               <div className="flex flex-wrap items-center gap-3 mb-3">
                 <span
-                  className={`font-body text-xs px-2.5 py-0.5 rounded-full border ${tagColors[item.tag] ?? "bg-gray-500/10 text-gray-400 border-gray-500/20"}`}
+                  className={`font-black text-xs px-3 py-0.5 rounded-full border ${tagColors[item.tag] ?? "bg-black/5 text-black border-black/20"}`}
                 >
                   {item.tag}
                 </span>
-                <span className="font-body text-xs text-[var(--color-muted)]">
+                <span className="font-body text-xs text-black/50">
                   {item.date}
                 </span>
-                <span className="font-body text-xs text-[var(--color-muted)] ml-auto">
+                <span className="font-body text-xs text-black/40 ml-auto">
                   {item.readTime} чтения
                 </span>
               </div>
-              <h2 className="font-display text-lg font-semibold text-[var(--color-text)] mb-2 group-hover:text-[var(--color-accent)] transition-colors leading-snug">
+              <h2 className="font-black text-lg leading-snug text-black mb-2 uppercase">
                 {item.title}
               </h2>
-              <p className="font-body text-sm text-[var(--color-muted)] leading-relaxed">
+              <p className="font-body text-sm text-black/60 leading-relaxed">
                 {item.excerpt}
               </p>
             </article>

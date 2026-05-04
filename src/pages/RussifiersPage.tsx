@@ -121,8 +121,8 @@ const russifiers = [
 ];
 
 const statusStyle: Record<string, string> = {
-  "Актуален": "text-emerald-400",
-  "Устарел": "text-orange-400",
+  "Актуален": "text-emerald-600 bg-emerald-50 border-emerald-200",
+  "Устарел": "text-orange-600 bg-orange-50 border-orange-200",
 };
 
 export default function RussifiersPage() {
@@ -147,15 +147,12 @@ export default function RussifiersPage() {
   }, [search, selectedGame, selectedVersion]);
 
   return (
-    <div className="min-h-screen pt-16">
-      <div className="max-w-5xl mx-auto px-6 pt-14 pb-20">
+    <div className="min-h-screen bg-white text-black">
+      <div className="max-w-5xl mx-auto px-6 pt-10 pb-20">
         {/* Header */}
         <div className="mb-10">
-          <span className="inline-block font-body text-xs tracking-[0.25em] uppercase text-[var(--color-accent)] mb-3 opacity-80">
-            Каталог
-          </span>
-          <h1 className="font-display text-4xl font-bold text-[var(--color-text)]">
-            Русификаторы
+          <h1 className="font-black text-[clamp(2.5rem,8vw,6rem)] uppercase leading-none tracking-tight text-black">
+            РУСИФИКАТОРЫ
           </h1>
         </div>
 
@@ -165,20 +162,20 @@ export default function RussifiersPage() {
             <Icon
               name="Search"
               size={16}
-              className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[var(--color-muted)]"
+              className="absolute left-3.5 top-1/2 -translate-y-1/2 text-black/40"
             />
             <input
               type="text"
               placeholder="Поиск по игре или команде..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 bg-transparent border border-[var(--color-border)] rounded-lg font-body text-sm text-[var(--color-text)] placeholder:text-[var(--color-muted)] focus:outline-none focus:border-[var(--color-accent)] transition-colors"
+              className="w-full pl-10 pr-4 py-2.5 bg-white border-2 border-black rounded-xl font-body text-sm text-black placeholder:text-black/40 focus:outline-none focus:border-[#2ab8c0] transition-colors"
             />
           </div>
           <select
             value={selectedGame}
             onChange={(e) => setSelectedGame(e.target.value)}
-            className="px-4 py-2.5 bg-[var(--color-bg)] border border-[var(--color-border)] rounded-lg font-body text-sm text-[var(--color-text)] focus:outline-none focus:border-[var(--color-accent)] transition-colors cursor-pointer"
+            className="px-4 py-2.5 bg-white border-2 border-black rounded-xl font-body text-sm text-black focus:outline-none focus:border-[#2ab8c0] transition-colors cursor-pointer"
           >
             {allGames.map((g) => (
               <option key={g} value={g}>
@@ -189,7 +186,7 @@ export default function RussifiersPage() {
           <select
             value={selectedVersion}
             onChange={(e) => setSelectedVersion(e.target.value)}
-            className="px-4 py-2.5 bg-[var(--color-bg)] border border-[var(--color-border)] rounded-lg font-body text-sm text-[var(--color-text)] focus:outline-none focus:border-[var(--color-accent)] transition-colors cursor-pointer"
+            className="px-4 py-2.5 bg-white border-2 border-black rounded-xl font-body text-sm text-black focus:outline-none focus:border-[#2ab8c0] transition-colors cursor-pointer"
           >
             {allVersions.map((v) => (
               <option key={v} value={v}>
@@ -200,9 +197,9 @@ export default function RussifiersPage() {
         </div>
 
         {/* Count */}
-        <div className="mb-5 font-body text-sm text-[var(--color-muted)]">
+        <div className="mb-5 font-body text-sm text-black/50">
           Найдено:{" "}
-          <span className="text-[var(--color-text)] font-medium">
+          <span className="text-black font-bold">
             {filtered.length}
           </span>{" "}
           русификаторов
@@ -210,7 +207,7 @@ export default function RussifiersPage() {
 
         {/* Grid */}
         {filtered.length === 0 ? (
-          <div className="text-center py-20 text-[var(--color-muted)] font-body">
+          <div className="text-center py-20 text-black/40 font-body">
             Ничего не найдено. Попробуйте изменить фильтры.
           </div>
         ) : (
@@ -218,63 +215,63 @@ export default function RussifiersPage() {
             {filtered.map((r) => (
               <div
                 key={r.id}
-                className="group border border-[var(--color-border)] rounded-xl p-5 hover:border-[var(--color-accent)] transition-all duration-300 cursor-pointer"
+                className="group border-2 border-black rounded-2xl p-5 hover:bg-[#f0f000] transition-colors duration-200 cursor-pointer"
               >
                 <div className="flex items-start justify-between gap-3 mb-3">
                   <div>
-                    <span className="font-body text-xs text-[var(--color-accent)] mb-1 block">
+                    <span className="font-black text-xs text-[#2ab8c0] mb-1 block uppercase tracking-wide">
                       {r.game}
                     </span>
-                    <h3 className="font-display text-base font-semibold text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors leading-snug">
+                    <h3 className="font-black text-base leading-snug text-black uppercase">
                       {r.title}
                     </h3>
                   </div>
                   <span
-                    className={`font-body text-xs whitespace-nowrap mt-1 ${statusStyle[r.status]}`}
+                    className={`font-black text-xs whitespace-nowrap mt-1 px-2.5 py-0.5 rounded-full border ${statusStyle[r.status]}`}
                   >
                     {r.status}
                   </span>
                 </div>
 
                 <div className="grid grid-cols-2 gap-y-1.5 mb-4">
-                  <div className="font-body text-xs text-[var(--color-muted)]">
+                  <div className="font-body text-xs text-black/50">
                     Команда:{" "}
-                    <span className="text-[var(--color-text)]">{r.team}</span>
+                    <span className="text-black font-semibold">{r.team}</span>
                   </div>
-                  <div className="font-body text-xs text-[var(--color-muted)]">
+                  <div className="font-body text-xs text-black/50">
                     Версия:{" "}
-                    <span className="text-[var(--color-text)]">
+                    <span className="text-black font-semibold">
                       {r.version}
                     </span>
                   </div>
-                  <div className="font-body text-xs text-[var(--color-muted)]">
+                  <div className="font-body text-xs text-black/50">
                     Тип:{" "}
-                    <span className="text-[var(--color-text)]">{r.type}</span>
+                    <span className="text-black font-semibold">{r.type}</span>
                   </div>
-                  <div className="font-body text-xs text-[var(--color-muted)]">
+                  <div className="font-body text-xs text-black/50">
                     Обновлён:{" "}
-                    <span className="text-[var(--color-text)]">
+                    <span className="text-black font-semibold">
                       {r.updated}
                     </span>
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between pt-3 border-t border-[var(--color-border)]">
+                <div className="flex items-center justify-between pt-3 border-t-2 border-black/10">
                   <div className="flex items-center gap-1">
                     <Icon
                       name="Star"
                       size={13}
-                      className="text-[var(--color-accent)] fill-[var(--color-accent)]"
+                      className="text-[#f0c000] fill-[#f0c000]"
                     />
                     <span className="font-body text-sm font-medium text-[var(--color-text)]">
                       {r.rating}
                     </span>
                   </div>
-                  <div className="flex items-center gap-1 text-[var(--color-muted)]">
+                  <div className="flex items-center gap-1 text-black/50">
                     <Icon name="Download" size={13} />
                     <span className="font-body text-xs">{r.downloads}</span>
                   </div>
-                  <button className="font-body text-xs px-3 py-1.5 bg-[var(--color-accent)] text-[var(--color-bg)] rounded-md hover:opacity-90 transition-opacity font-medium">
+                  <button className="font-black text-xs px-4 py-1.5 bg-black text-white rounded-full hover:bg-[#2ab8c0] transition-colors uppercase">
                     Скачать
                   </button>
                 </div>
