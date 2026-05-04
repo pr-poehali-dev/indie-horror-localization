@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import Icon from "@/components/ui/icon";
+import RussifierDetailPage from "@/pages/RussifierDetailPage";
 
 const allGames = [
   "Все игры",
@@ -129,6 +130,7 @@ export default function RussifiersPage() {
   const [search, setSearch] = useState("");
   const [selectedGame, setSelectedGame] = useState("Все игры");
   const [selectedVersion, setSelectedVersion] = useState("Любая версия");
+  const [selectedId, setSelectedId] = useState<number | null>(null);
 
   const filtered = useMemo(() => {
     return russifiers.filter((r) => {
@@ -145,6 +147,13 @@ export default function RussifiersPage() {
       return matchSearch && matchGame && matchVersion;
     });
   }, [search, selectedGame, selectedVersion]);
+
+  if (selectedId !== null) {
+    const russifier = russifiers.find((r) => r.id === selectedId);
+    if (russifier) {
+      return <RussifierDetailPage russifier={russifier} onBack={() => setSelectedId(null)} />;
+    }
+  }
 
   return (
     <div className="min-h-screen bg-white text-black">
@@ -215,6 +224,7 @@ export default function RussifiersPage() {
             {filtered.map((r) => (
               <div
                 key={r.id}
+                onClick={() => setSelectedId(r.id)}
                 className="group border-2 border-black rounded-2xl p-5 hover:bg-[#f0f000] transition-colors duration-200 cursor-pointer"
               >
                 <div className="flex items-start justify-between gap-3 mb-3">
