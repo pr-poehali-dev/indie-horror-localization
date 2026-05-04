@@ -1,14 +1,39 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import Navbar from "@/components/Navbar";
+import HomePage from "@/pages/HomePage";
+import NewsPage from "@/pages/NewsPage";
+import RussifiersPage from "@/pages/RussifiersPage";
 
-const Index = () => {
+type Page = "home" | "news" | "russifiers";
+
+export default function Index() {
+  const [currentPage, setCurrentPage] = useState<Page>("home");
+
+  const renderPage = () => {
+    switch (currentPage) {
+      case "home":
+        return <HomePage onNavigate={setCurrentPage} />;
+      case "news":
+        return <NewsPage />;
+      case "russifiers":
+        return <RussifiersPage />;
+    }
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4 color-black text-black">Добро пожаловать!</h1>
-        <p className="text-xl text-gray-600">тут будет отображаться ваш проект</p>
-      </div>
+    <div className="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)]">
+      <Navbar currentPage={currentPage} onNavigate={setCurrentPage} />
+      <main>{renderPage()}</main>
+      <footer className="border-t border-[var(--color-border)] px-6 py-6">
+        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+          <span className="font-display text-sm font-bold text-[var(--color-accent)]">
+            RuLoc
+          </span>
+          <span className="font-body text-xs text-[var(--color-muted)]">
+            © 2026 — Каталог русификаторов
+          </span>
+        </div>
+      </footer>
     </div>
   );
-};
-
-export default Index;
+}
